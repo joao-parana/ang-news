@@ -1,0 +1,27 @@
+
+<div>
+  Clique em : <a href="{{ post.url }}">{{ post.title }}</a> para abrir o Site.
+</div>
+
+<br />
+
+<p>Comments</p>
+
+<div ng-repeat="(commentId, comment) in post.comments">
+  <div>
+    <p>{{ comment.text }} 
+       <a ng-click="removeComment(comment, commentId)">(delete)</a></p>
+  </div>
+</div> 
+
+<div>
+  <form>
+    <textarea ng-model="comment.text" placeholder="Post a Comment" class="form-control"></textarea><br />
+    <input type="submit" ng-click="addComment()" value="Post Comment" class="btn btn-primary" />
+  </form>
+</div>
+
+<br /><br />    
+    
+<a href="#/posts">Back to Posts</a>
+

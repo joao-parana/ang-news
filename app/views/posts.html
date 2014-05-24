@@ -1,6 +1,7 @@
 
 <div ng-repeat="(postId, post) in posts">
   <a href="{{ post.url }}">{{ post.title }}</a>
+  <a href="#/posts/{{ postId }}">comments</a>
   <a ng-click="deletePost(postId)">delete</a>
 </div>
  
@@ -11,8 +12,14 @@
 </form>
 
 <hr />
-<div style="border: 2px black solid">
-  Para DEBUG  <br />
+<div style="border: 2px silver solid; color: silver; padding: 10px;">
+  Para DEBUG <br />
+  Copie o código abaixo para o Clipboard e use o site 
+  <a href="http://jsbeautifier.org">JSBeautifier</a> 
+  e depois cole o conteudo abaixo n campo indicado. 
+  Tecle Ctrl+Enter <br /><br />
   Posts: {{ posts }}<br />
+  
+  <br /><hr />
   Post: {{ post }}
 </div>
