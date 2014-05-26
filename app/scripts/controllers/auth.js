@@ -1,4 +1,3 @@
-
 'use strict';
  
 app.controller('AuthCtrl',
@@ -17,6 +16,8 @@ app.controller('AuthCtrl',
       Auth.login($scope.user).then(function () {
         // console.log($scope.user);
         $location.path('/');
+      }, function (error) {
+        $scope.error = error.toString();
       });
     };
     
@@ -24,6 +25,8 @@ app.controller('AuthCtrl',
       Auth.register($scope.user).then(function (authUser) {
         console.log(authUser);
         $location.path('/');
+      }, function (error) {
+        $scope.error = error.toString();
       });
     };
   });
