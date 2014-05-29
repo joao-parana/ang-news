@@ -307,6 +307,12 @@ module.exports = function (grunt) {
       ]
     },
 
+    esformatter: {
+      src: [ 'app/*.js', 'app/scripts/**/*.js'
+          /*  , 'app/bower_components/jquery/dist/jquery.js' */
+      ]
+    },
+
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
@@ -342,6 +348,7 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-esformatter');
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
