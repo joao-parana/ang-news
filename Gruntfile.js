@@ -308,8 +308,9 @@ module.exports = function (grunt) {
     },
 
     esformatter: {
-      src: [ 'app/*.js', 'app/scripts/**/*.js'
-          /*  , 'app/bower_components/jquery/dist/jquery.js' */
+      src: [ 'app/scripts/app-impl.js'
+          // , 'app/*.js', 'app/scripts/**/*.js'
+          // , 'app/bower_components/jquery/dist/jquery.js'
       ]
     },
 
