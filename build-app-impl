@@ -1,0 +1,9 @@
+rm app/scripts/app-impl.js
+for a in `find app/scripts -name "*.js" | grep -v app.js`
+do
+  echo " " >> app/scripts/app-impl.js
+  echo "/* Arquivo: $a  */" >> app/scripts/app-impl.js
+  echo " " >> app/scripts/app-impl.js
+  cat $a >> app/scripts/app-impl.js
+done
+echo " " >> app/scripts/app-impl.js
