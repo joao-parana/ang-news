@@ -3,13 +3,8 @@
 /* global app:true */
  
 angular
-  .module('angNewsApp', [
-    'ngCookies',
-    'ngResource',
-    'ngSanitize',
-    'ngRoute',
-    'firebase'
-  ]).config(function ($routeProvider) {
+  .module('angNewsApp', [ 'ngCookies', 'ngResource', 'ngSanitize', 
+    'ngRoute', 'firebase' ]).config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/posts.html',
@@ -26,6 +21,10 @@ angular
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'AuthCtrl'
+      })
+      .when('/users/:username', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
       })
       .otherwise({
         redirectTo: '/'
