@@ -18,19 +18,19 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="angNewsApp"> 
+  <body ng-app="angNewsApp">
     <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. 
-      Please <a href="http://browsehappy.com/">upgrade your browser</a> 
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser.
+      Please <a href="http://browsehappy.com/">upgrade your browser</a>
       to improve your experience.</p>
     <![endif]-->
 
-    <!-- We add nav.js controller to our index.html. While we're in index.html, 
-    lets add our nav to index.html using ng-include - place it right above. 
+    <!-- We add nav.js controller to our index.html. While we're in index.html,
+    lets add our nav to index.html using ng-include - place it right above.
     our ng-view div. This will include the navbar template on every page. -->
 
     <div ng-include="'views/nav.html'"></div>
-    
+
     <!-- Add your site or application content here -->
     <div class="container" ng-view=""></div>
 
@@ -49,6 +49,8 @@
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -75,8 +77,65 @@
         <script src="scripts/services/post.js"></script>
         <script src="scripts/services/auth.js"></script>
         <script src="scripts/services/user.js"></script>
-        <script src="scripts/filters/url.js"></script> 
+        <script src="scripts/filters/url.js"></script>
         <script src="scripts/directives/checkusername.js"></script>
         <!-- endbuild -->
+
+    <!-- As Views podem ficar inline e serão carregadas logo de cara  -->
+
+    <!-- CACHE FILE: list.html -->
+    <script type="text/ng-template" id="views/project-list.html">
+      <input type="text" ng-model="search" class="search-query" placeholder="Search">
+      <table>
+        <thead>
+        <tr>
+          <th>Project</th>
+          <th>Description</th>
+          <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="project in projects | orderByPriority | filter:search | orderBy:'name'">
+          <td><a href="{{project.site}}" target="_blank">{{project.name}}</a></td>
+          <td>{{project.description}}</td>
+          <td>
+            <a href="#/edit/{{project.$id}}"><i class="icon-pencil"></i></a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </script>
+
+    <!-- CACHE FILE: detail.html -->
+    <script type="text/ng-template" id="views/project-detail.html">
+      <form name="myForm">
+        <div class="control-group" ng-class="{error: myForm.name.$invalid && !myForm.name.$pristine}">
+          <label>Name</label>
+          <input type="text" name="name" ng-model="project.name" required>
+          <span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">
+              Required {{myForm.name.$pristine}}</span>
+        </div>
+
+        <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">
+          <label>Website</label>
+          <input type="url" name="site" ng-model="project.site" required>
+          <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">
+              Required</span>
+          <span ng-show="myForm.site.$error.url" class="help-inline">
+              Not a URL</span>
+        </div>
+
+        <label>Description</label>
+        <textarea name="description" ng-model="project.description"></textarea>
+
+        <br>
+        <a href="#/" class="btn">Cancel</a>
+        <button ng-click="save()" ng-disabled="myForm.$invalid"
+                class="btn btn-primary">Save</button>
+        <button ng-click="destroy()"
+                ng-show="project.$remove" class="btn btn-danger">Delete</button>
+      </form>
+    </script>
+
 </body>
 </html>

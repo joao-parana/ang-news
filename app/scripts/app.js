@@ -26,17 +26,17 @@ angular
         templateUrl: 'views/profile.html',
         controller: 'ProfileCtrl'
       })
-      .when('/projects', {
+      .when('/projects/list', {
         controller:'ProjectListCtrl',
-        templateUrl:'views/projectlist.html'
+        templateUrl:'views/project-list.html'
       })
-      .when('/project/edit/:projectId', {
+      .when('/projects/:projectId', {
         controller:'ProjectEditCtrl',
-        templateUrl:'views/projectdetail.html'
+        templateUrl:'views/project-detail.html'
       })
       .when('/project/new', {
         controller:'ProjectCreateCtrl',
-        templateUrl:'projectdetail.html'
+        templateUrl:'views/project-detail.html'
       })
       .otherwise({
         redirectTo: '/'
@@ -47,33 +47,25 @@ var app = angular.module('angNewsApp');
 app.constant('FIREBASE_URL',
     'https://luminous-fire-6652.firebaseio.com/');
 
-app.factory('Projects', function($firebase, fbURL) {
-  return $firebase(new Firebase(fbURL));
-})
+app.factory('Projects', function($firebase, FIREBASE_URL) {
+  return $firebase(new Firebase(FIREBASE_URL));
+});
 
-.config(function($routeProvider) {
-  $routeProvider
-
-    .otherwise({
-      redirectTo:'/'
-    });
-})
-
-.controller('ProjectListCtrl', function($scope, Projects) {
+app.controller('ProjectListCtrl', function($scope, Projects) {
   $scope.projects = Projects;
-})
+});
 
-.controller('CreateCtrl', function($scope, $location, $timeout, Projects) {
+app.controller('ProjectCreateCtrl', function($scope, $location, $timeout, Projects) {
   $scope.save = function() {
     Projects.$add($scope.project, function() {
-      $timeout(function() { $location.path('/'); });
+      $timeout( function() { $location.path('/'); } );
     });
   };
-})
+});
 
-.controller('EditCtrl',
-  function($scope, $location, $routeParams, $firebase, fbURL) {
-    var projectUrl = fbURL + $routeParams.projectId;
+app.controller('ProjectEditCtrl',
+  function($scope, $location, $routeParams, $firebase, FIREBASE_URL) {
+    var projectUrl = FIREBASE_URL + $routeParams.projectId;
     $scope.project = $firebase(new Firebase(projectUrl));
 
     $scope.destroy = function() {
@@ -85,5 +77,4 @@ app.factory('Projects', function($firebase, fbURL) {
       $scope.project.$save();
       $location.path('/');
     };
-});
-
+  });
