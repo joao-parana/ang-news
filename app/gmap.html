@@ -43,6 +43,8 @@
 
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
+
+       var twoPoints =  "{ 'type': 'MultiPoint', 'coordinates': [ [-22.8679, -43.255], [-22.8684, -43.2548] ] }";
     </script>
 
     <!--[if lt IE 9]>
@@ -64,8 +66,6 @@
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/firebase-simple-login/firebase-simple-login.js"></script>
     <script src="bower_components/angularfire/angularfire.js"></script>
-    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -138,8 +138,6 @@
                 ng-show="project.$remove" class="btn btn-danger">Delete</button>
       </form>
     </script>
-
     <markers coords="{ 'type': 'MultiPoint', 'coordinates': [ [-22.8679, -43.255], [-22.8684, -43.2548] ] }"></markers>
-
   </body>
 </html>
